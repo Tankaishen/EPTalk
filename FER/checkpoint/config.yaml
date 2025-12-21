@@ -1,0 +1,36 @@
+utils:
+  seed: 42
+  exp_name: base_BN_class_dropout0.3_leaky_weightloss_aug0.5_std0.02
+model:
+  name: classifyNet
+  batch_norm: true
+  dropout: 0.3
+  input_dim: 15069
+  output_dim: 8
+  layers:
+  - 1024
+  - 2048
+  - 4096
+  - 2048
+  - 1024
+  - 512
+  - 64
+  activation: LeakyReLU
+data:
+  data_file_path: AffectNet/data_15069_cleaned.pkl
+  label_file_path: AffectNet/labels_long.pkl
+  exclude_7: false
+train:
+  data_aug:
+    prob: 0.5
+    std: 0.02
+  num_epochs: 200
+  lr: 0.001
+  optimizer: Adam
+  loss: WeightedCrossEntropyLoss
+  scheduler: CosineAnnealingLR
+  save_every: 5
+  save_dir: ./FER/save_dir
+  batch_size: 5096
+val:
+  batch_size: 5096
